@@ -24,23 +24,23 @@ struct node* createNode(char c){
 
 void addNode(struct node* newNode, struct node *head){
 	if (newNode->c < head->c){
-		if(head->left == NULL){
+		if(head->left == NULL){		//if left is Null add new node
 			head->left = newNode;
-			head->parent = head;
+			newNode->parent = head;
 			return;
 		}
 		else{
-			addNode(newNode,head->left);
+			addNode(newNode,head->left);	//GO further down Tree
 		}
 	}
 	else{
-		if(head->right == NULL){
+		if(head->right == NULL){		//if right is null add new Node
 			head->right = newNode;
-			newNode->left = head;
+			newNode->parent = head;
 			return;
 		}
 		else{
-			addNode(newNode,head->left);
+			addNode(newNode,head->right);
 		}
 	}
 	return;
@@ -56,4 +56,7 @@ int main(){
 	newNode = createNode('f');
 	addNode(newNode, head);
 	printf("Added node is %c\n", head->right->c);
+	newNode = createNode('b');
+	addNode(newNode,head);
+	printf("Added node is %c and parent is %c\n", head->left->right->c, newNode->parent->c);
 }
